@@ -1,18 +1,16 @@
-import {
-  Box,
-  Text,
-  Accordion,
-  Span,
-  Spinner,
-  Flex,
-  Icon,
-} from "@chakra-ui/react";
-import { use, useCallback, useState, useRef } from "react";
+import { Box, Text, Accordion, Span } from "@chakra-ui/react";
+import { use, useCallback, useState, lazy, Suspense } from "react";
 import { GitContext } from "@/contexts/git/git-context";
 import { GitContextType } from "@/contexts/git/types";
 import { getUserRepositories } from "@/services/git/requests";
-import { Virtuoso } from "react-virtuoso";
-import { FaStar } from "react-icons/fa";
+import { LoadingFallback, ErrorBoundary } from "@/components";
+
+// Lazy load the RepositoryVirtual component
+const RepositoryVirtual = lazy(() =>
+  import("./repository-virtual").then((module) => ({
+    default: module.RepositoryVirtual,
+  }))
+);
 
 export function GitAccordion() {
   const context = use(GitContext) as GitContextType;
@@ -29,7 +27,6 @@ export function GitAccordion() {
   const users = searchUserData?.items || [];
   const [visibleRepos, setVisibleRepos] = useState(10);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const virtuosoRef = useRef(null);
 
   const fetchUserRepositories = useCallback(
     async (username: string) => {
@@ -98,59 +95,16 @@ export function GitAccordion() {
                       <Text>No repositories found</Text>
                     ) : (
                       <Box>
-                        <Box height="300px">
-                          <Virtuoso
-                            ref={virtuosoRef}
-                            style={{ height: "100%" }}
-                            data={repositories.slice(0, visibleRepos)}
-                            endReached={loadMore}
-                            overscan={20}
-                            increaseViewportBy={200}
-                            itemContent={(_, repo) => (
-                              <Box key={repo.id} p={3} bg={"gray.100"} mb={2}>
-                                <Flex justify="space-between" align="center">
-                                  <Text fontWeight="bold">{repo.name}</Text>
-                                  <Flex align="center" gap="1.5">
-                                    <Text fontSize="sm" color="gray.500">
-                                      {repo.stargazers_count || 0}
-                                    </Text>
-                                    <Icon as={FaStar} color="black" mr={1} />
-                                  </Flex>
-                                </Flex>
-                                <Text
-                                  fontSize="sm"
-                                  color="gray.600"
-                                  mt={1}
-                                  overflow="hidden"
-                                  textOverflow="ellipsis"
-                                  maxW="100%"
-                                  style={{
-                                    display: "-webkit-box",
-                                    WebkitLineClamp: 2,
-                                    WebkitBoxOrient: "vertical",
-                                  }}>
-                                  {repo.description ||
-                                    "No description available"}
-                                </Text>
-                              </Box>
-                            )}
-                            components={{
-                              Footer: () =>
-                                isLoadingMore &&
-                                repositories &&
-                                visibleRepos < repositories.length ? (
-                                  <Box
-                                    display="flex"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    p={4}>
-                                    <Spinner size="sm" mr={2} />
-                                    <Text fontSize="sm">Loading more...</Text>
-                                  </Box>
-                                ) : null,
-                            }}
-                          />
-                        </Box>
+                        <ErrorBoundary>
+                          <Suspense fallback={<LoadingFallback />}>
+                            <RepositoryVirtual
+                              repositories={repositories}
+                              visibleRepos={visibleRepos}
+                              isLoadingMore={isLoadingMore}
+                              loadMore={loadMore}
+                            />
+                          </Suspense>
+                        </ErrorBoundary>
                       </Box>
                     )
                   ) : (
