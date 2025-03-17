@@ -1,0 +1,83 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Before diving into the best practices, please note that you may need to adapt the globs depending on your specific project structure.
+
+---
+name: chakra-ui-best-practices.mdc
+description: Best practices for using Chakra UI in React applications
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use Chakra UI's theme customization for consistent styling
+- Leverage responsive props for mobile-first design
+- Implement accessibility features like focus management and ARIA labels
+- Use Chakra UI's built-in hooks for state management (e.g., useDisclosure)
+
+---
+name: emotion-best-practices.mdc
+description: Best practices for using Emotion with React
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use the `css` prop for inline styling
+- Create and reuse styled components for consistency
+- Utilize Emotion's theming system for global style management
+- Optimize performance by using the `shouldForwardProp` option
+
+---
+name: react-hook-form-best-practices.mdc
+description: Best practices for form handling with React Hook Form
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use the `useForm` hook for form state management
+- Implement validation using the `register` function
+- Leverage the `Controller` component for controlled inputs
+- Use `useFormContext` for sharing form state across components
+
+---
+name: axios-best-practices.mdc
+description: Best practices for making HTTP requests with Axios
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use interceptors for global request/response handling
+- Implement proper error handling with try/catch blocks
+- Use cancel tokens to cancel ongoing requests when necessary
+- Set appropriate timeouts for requests to prevent hanging
+
+---
+name: next-themes-best-practices.mdc
+description: Best practices for managing themes with Next Themes
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use the `useTheme` hook to access and toggle themes
+- Implement a theme switcher component for user control
+- Set a default theme in the `ThemeProvider`
+- Use system theme detection for better user experience
+
+---
+name: react-icons-best-practices.mdc
+description: Best practices for using React Icons in your React application
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Import icons on-demand to reduce bundle size
+- Use consistent icon sizes across your application
+- Implement custom styling for icons using CSS classes
+- Consider accessibility by adding appropriate aria labels to icons
+
+---
+name: zod-best-practices.mdc
+description: Best practices for schema validation with Zod
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Define schemas for all data structures to ensure type safety
+- Use Zod's built-in validation methods for complex data validation
+- Implement custom error messages for user-friendly feedback
+- Leverage Zod's integration with React Hook Form for seamless form validation
