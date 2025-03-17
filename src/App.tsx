@@ -48,6 +48,8 @@ function App() {
     initialUsername,
     setInitialUsername,
     getInitialUsername,
+    isRepoSelected,
+    setIsRepoSelected,
   } = use(GitContext) as GitContextType;
 
   // Use the custom hook for URL parameters
@@ -66,6 +68,7 @@ function App() {
       setSearchUserData(null);
       setUserLoading(true);
       setSearchError(null);
+      setIsRepoSelected(false);
 
       try {
         const results = await searchGitHubUsers(username);
@@ -88,6 +91,7 @@ function App() {
       setSearchUserData,
       setUserLoading,
       setSearchError,
+      setIsRepoSelected,
     ]
   );
 
@@ -174,25 +178,27 @@ function App() {
             disabled={userLoading}>
             {userLoading ? "Loading..." : "Submit"}
           </Button>
-          {searchUserData && !searchError && initialUsername && (
-            <Text mt={2} fontSize="sm" color="gray.500" textAlign="left">
-              Showing Users for "{initialUsername}"
-            </Text>
+          {searchUserData &&
+            !searchError &&
+            initialUsername &&
+            !isRepoSelected && (
+              <Text mt={2} fontSize="sm" color="gray.500" textAlign="left">
+                Showing Users for "{initialUsername}"
+              </Text>
+            )}
+          {userLoading ? (
+            <LoadingFallback />
+          ) : (
+            searchUserData &&
+            !searchError && (
+              <ErrorBoundary>
+                <Suspense fallback={<LoadingFallback />}>
+                  <GitAccordion />
+                </Suspense>
+              </ErrorBoundary>
+            )
           )}
         </Stack>
-
-        {userLoading ? (
-          <LoadingFallback />
-        ) : (
-          searchUserData &&
-          !searchError && (
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <GitAccordion />
-              </Suspense>
-            </ErrorBoundary>
-          )
-        )}
       </Stack>
     </Box>
   );

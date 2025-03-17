@@ -34,4 +34,8 @@ export interface GitContextType {
   repoError: Error | null;
   /** Setter for repository error state */
   setRepoError: (error: Error | null) => void;
+  /** Indicates if a repository is selected */
+  isRepoSelected: boolean;
+  /** Setter for repository selection state */
+  setIsRepoSelected: (selected: boolean) => void;
 }

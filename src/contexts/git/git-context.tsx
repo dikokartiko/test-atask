@@ -22,8 +22,9 @@ export const GitProvider = ({ children }: GitProviderProps) => {
 
   // New state for repositories
   const [repositories, setRepositories] = useState<GitHubRepo[] | null>(null);
-  const [isLoadingRepos, setIsLoadingRepos] = useState(false);
+  const [isLoadingRepos, setIsLoadingRepos] = useState<boolean>(false);
   const [repoError, setRepoError] = useState<Error | null>(null);
+  const [isRepoSelected, setIsRepoSelected] = useState<boolean>(false);
 
   // Use the custom hook for URL parameters
   const { getParam } = useUrlParam("username");
@@ -45,11 +46,13 @@ export const GitProvider = ({ children }: GitProviderProps) => {
     initialUsername,
     setInitialUsername,
     repositories,
-    setRepositories, // Export setRepositories instead
+    setRepositories,
     isLoadingRepos,
-    setIsLoadingRepos, // Export setIsLoadingRepos instead
+    setIsLoadingRepos,
     repoError,
-    setRepoError, // Export setRepoError instead
+    setRepoError,
+    isRepoSelected,
+    setIsRepoSelected,
     getInitialUsername,
   };
 

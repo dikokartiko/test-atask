@@ -24,6 +24,7 @@ export function GitAccordion() {
     setIsLoadingRepos,
     repoError,
     setRepoError,
+    setIsRepoSelected,
   } = context;
   const users = searchUserData?.items || [];
   const [visibleRepos, setVisibleRepos] = useState(10);
@@ -37,6 +38,7 @@ export function GitAccordion() {
       setRepoError(null);
       setVisibleRepos(10);
       setIsLoadingMore(false);
+      setIsRepoSelected(true);
 
       try {
         const results = await getUserRepositories(username, {
@@ -57,7 +59,7 @@ export function GitAccordion() {
         setIsLoadingRepos(false);
       }
     },
-    [setRepositories, setIsLoadingRepos, setRepoError]
+    [setRepositories, setIsLoadingRepos, setRepoError, setIsRepoSelected]
   );
 
   const loadMore = useCallback(() => {
