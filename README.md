@@ -6,9 +6,7 @@ A modern React application that allows users to search for GitHub profiles and v
 
 - Search for GitHub users by username
 - View detailed user information
-- Browse user repositories with filtering options
 - Responsive design for all device sizes
-- Dark/light theme support
 - Optimized performance with lazy loading components
 - URL parameter support for sharing searches
 
@@ -27,8 +25,9 @@ A modern React application that allows users to search for GitHub profiles and v
 
 ## 📋 Prerequisites
 
-- Node.js 18.x or higher
+- Node.js 22.9.0 (specified in .nvmrc)
 - pnpm (recommended) or npm/yarn
+- [Volta](https://volta.sh/) (optional) - The project includes Volta configuration for consistent tooling
 
 ## 🔧 Installation
 
@@ -108,7 +107,52 @@ open coverage/lcov-report/index.html
 xdg-open coverage/lcov-report/index.html
 ```
 
-## 🧩 Project Structure
+## 🐳 Docker Setup
+
+This project includes Docker configuration for both development and production environments.
+
+### Development Environment
+
+Run the application in development mode with hot reloading:
+
+```bash
+docker compose -f docker-compose.dev.yml up
+```
+
+This will:
+
+- Mount the source code as a volume for real-time updates
+- Expose the development server on port 3001
+- Set up the environment for development
+
+### Production Environment
+
+Build and run the production-ready container:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+This will:
+
+- Build the React application
+- Serve the static files using Nginx
+- Run the container in detached mode
+- Expose the application on port 80
+
+### Building Custom Images
+
+You can also build and tag custom images:
+
+```bash
+# Development image
+docker build --target development -t github-explorer:dev .
+
+# Production image
+docker build --target production -t github-explorer:prod .
+```
+
+## �� Project Structure
 
 ```
 src/

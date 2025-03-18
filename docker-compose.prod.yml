@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      target: production
+    image: github-explorer:prod
+    container_name: github-explorer-prod
+    ports:
+      - "3002:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
