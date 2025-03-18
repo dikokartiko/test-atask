@@ -2,7 +2,7 @@
 import { createContext, ReactNode, useState, useCallback } from "react";
 import { GitHubUserSearchResponse, GitHubRepo } from "@/services/git/types";
 import { GitContextType } from "./types";
-import { useUrlParam } from "@/hooks/use-UrlParam";
+import { useUrlParam } from "@/hooks/use-urlparam";
 
 // Create context with a default value
 export const GitContext = createContext<GitContextType | undefined>(undefined);

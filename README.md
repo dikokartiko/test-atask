@@ -23,6 +23,7 @@ A modern React application that allows users to search for GitHub profiles and v
 - **Icons**: React Icons
 - **Theme Support**: Next Themes
 - **List Virtualization**: React Virtuoso
+- **Testing**: Jest and React Testing Library
 
 ## 📋 Prerequisites
 
@@ -75,18 +76,54 @@ pnpm preview
 pnpm lint
 ```
 
+## 🧪 Testing
+
+The application uses Jest and React Testing Library for unit and component testing.
+
+### Running tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage report
+pnpm test:coverage
+```
+
+### View coverage report
+
+Open the HTML coverage report:
+
+```bash
+# On Windows
+explorer.exe coverage\lcov-report\index.html
+
+# On macOS
+open coverage/lcov-report/index.html
+
+# On Linux
+xdg-open coverage/lcov-report/index.html
+```
+
 ## 🧩 Project Structure
 
 ```
 src/
-├── assets/        # Static assets
-├── components/    # Reusable UI components
-├── contexts/      # React contexts
-├── hooks/         # Custom React hooks
-├── services/      # API and service functions
-├── theme/         # Chakra UI theme configuration
-├── App.tsx        # Main application component
-└── main.tsx       # Application entry point
+├── assets/         # Static assets
+├── components/     # Reusable UI components
+├── contexts/       # React contexts
+├── hooks/          # Custom React hooks
+├── services/       # API and service functions
+├── theme/          # Chakra UI theme configuration
+├── __tests__/      # Test files organized by component/feature
+├── test-utils/     # Testing utilities and setup
+│   ├── setup-tests.ts      # Global test setup
+│   └── test-providers.tsx  # Test wrapper providers
+├── App.tsx         # Main application component
+└── main.tsx        # Application entry point
 ```
 
 ## 🙏 Acknowledgments
